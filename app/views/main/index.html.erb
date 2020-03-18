@@ -1,0 +1,90 @@
+<!-- banner -->
+<div class="bnr" id="home">
+  <div id="top" class="callbacks_container">
+    <ul class="rslides" id="slider4">
+      <li>
+        <%= image_tag("bnr-1.jpg", alt: "") %>
+      </li>
+      <li>
+        <%= image_tag("bnr-2.jpg", alt: "") %>
+      </li>
+      <li>
+        <%= image_tag("bnr-3.jpg", alt: "") %>
+      </li>
+    </ul>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<!-- banner -->
+
+<% if @brands.nil? %>
+<h2>No brands</h2>
+<% else %>
+
+<!-- brands -->
+<div class="about">
+  <div class="container">
+    <div class="about-top grid-1">
+      <% @brands.each do |brand| %>
+      <div class="col-md-4 about-left">
+<!--        <figure class="effect-bubba">-->
+          <%= link_to(image_tag(brand.img, alt: "", class: "img-responsive"), brand) %>
+<!--          <figcaption>-->
+            <h2><%= brand.title %></h2>
+            <p><%= brand.description %></p>
+<!--          </figcaption>-->
+<!--        </figure>-->
+        </div>
+      <% end %>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+<% end %>
+<!-- brands -->
+
+<% if @hits.nil? %>
+<h2>No hits</h2>
+<% else %>
+
+<!-- products -->
+<div class="product">
+  <div class="container">
+    <div class="product-top">
+      <div class="product-one">
+        <% @hits.each do |hit| %>
+        <div class="col-md-3 product-left">
+          <div class="product-main simpleCart_shelfItem">
+            <a href="product/<%=hit.id%>" class="mask">
+              <%= image_tag(hit.img, alt: "", class: "img-responsive zoom-img") %>
+            </a>
+            <%= %>
+            <div class="product-bottom">
+              <h3><a href="product/<%=hit.id%>"><%= hit.title.truncate(18) %></a></h3>
+              <p>See Now</p>
+              <h4>
+                <%= link_to 'cart_items', class: 'add-to-cart-link', data: { id: hit.id } do %>
+                  <i></i>
+                  <% end %>
+                <span class="item_price">$ <%= hit.price %></span>
+                <% if hit.old_price %>
+                <small><del>$ <%= hit.old_price %></del></small>
+                  <% end %>
+              </h4>
+            </div>
+
+            <div class="srch">
+              <% if hit.old_price > hit.price %>
+              <span>SALE</span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  <% end %>
+<!-- products -->

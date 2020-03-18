@@ -1,0 +1,26 @@
+
+[1mFrom:[0m /home/olga/www/shop/app/models/concerns/user_oath.rb @ line 13 UserOath::ClassMethods#find_for_oauth:
+
+     [1;34m9[0m: [32mdef[0m [1;34mfind_for_oauth[0m(auth)
+    [1;34m10[0m:   authorizations = [1;34;4mAuthorization[0m
+    [1;34m11[0m:                       .where([35mprovider[0m: auth.provider, [35muid[0m: auth.uid)
+    [1;34m12[0m:                       .first
+ => [1;34m13[0m:   binding.pry
+    [1;34m14[0m:   [32mreturn[0m authorizations.user [32mif[0m authorizations
+    [1;34m15[0m: 
+    [1;34m16[0m:   email = auth.info[[33m:email[0m]
+    [1;34m17[0m:   user = [1;34;4mUser[0m.where([35memail[0m: email).first
+    [1;34m18[0m: 
+    [1;34m19[0m:   email ||= create_email(auth) [32mif[0m email.nil?
+    [1;34m20[0m: 
+    [1;34m21[0m:   [32mif[0m user
+    [1;34m22[0m:     user.create_authorization(auth)
+    [1;34m23[0m:   [32melse[0m
+    [1;34m24[0m:     password = [1;34;4mDevise[0m.friendly_token[[1;34m0[0m, [1;34m20[0m]
+    [1;34m25[0m:     user     = [1;34;4mUser[0m.create!([35memail[0m: email,
+    [1;34m26[0m:                         [35mpassword[0m: password,
+    [1;34m27[0m:                         [35mpassword_confirmation[0m: password)
+    [1;34m28[0m:     user.create_authorization(auth)
+    [1;34m29[0m:   [32mend[0m
+    [1;34m30[0m: [32mend[0m
+

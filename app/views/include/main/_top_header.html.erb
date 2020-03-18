@@ -1,0 +1,86 @@
+<div class="top-header">
+  <div class="container">
+    <div class="top-header-main">
+      <div class="col-md-6 top-header-left">
+        <div class="drop">
+          <div class="box">
+            <select tabindex="4" class="dropdown drop">
+              <option value="" class="label">Dollar </option>
+              <option value="1">Dollar</option>
+              <option value="2">Euro</option>
+            </select>
+          </div>
+          <div class="box1">
+           <select tabindex="4" class="dropdown">
+             <option value="" class="label">English </option>
+             <option value="1" class="label">English</option>
+             <option value="2" class="label">French</option>
+             <option value="3" class="label">German</option>
+           </select>
+          </div>
+
+          <div class="btn-group">
+            <a class="dropdown-toggle" data-toggle="dropdown">ACCOUNT <span class="caret"></span> </a>
+            <ul class="dropdown-menu">
+             <% if user_signed_in? %>
+              <% if current_user.try(:admin?) %>
+                <li><%= link_to 'administrator', '#', style: "color:red" %></li>
+                <li><%= link_to 'API', '/oauth/applications', style: "color: blue" %></li>
+              <% end %>
+                <li><a href="#">Welcome, <%= current_user.email %></a></li>
+                <li><%= link_to 'Exit', destroy_user_session_path, method: :delete %></li>
+                <li><%= link_to 'Edit', edit_user_registration_path %></li>
+                  <% else %>
+                <li><%= link_to 'Log In', new_user_session_path %></li>
+                <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+             <% end %>
+            </ul>
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <div class="col-md-6 top-header-left">
+        <div class="cart box_1">
+
+          <a href="/cart" onclick="getCart(); return false;">
+            <div class="total">
+              <%= image_tag('cart-1.png', alt: "") %>
+              <% if cart_items.any? %>
+              <span>
+                <%= format("%.2f", cart_total) %> $
+              </span>
+                <% else %>
+                  <span class="simpleCart_total">Empty Cart</span>
+                <% end %>
+
+            </div>
+          </a>
+          <div class="clearfix"></div>
+        </div>
+       </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Cart -->
+<div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" id="myModalLabel"><b>Your Cart</b></h3>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Keep shopping</button>
+        <a href="cart/index" type="button" class="btn btn-primary">Place your order</a>
+        <button type="button" class="btn btn-danger" onclick="clearCart()">Clear Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
